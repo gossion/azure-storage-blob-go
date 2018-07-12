@@ -129,10 +129,10 @@ func ExampleNewPipeline() {
 		// Set RetryOptions to control how HTTP request are retried when retryable failures occur
 		Retry: azblob.RetryOptions{
 			Policy:        azblob.RetryPolicyExponential, // Use exponential backoff as opposed to linear
-			MaxTries:      3,                      // Try at most 3 times to perform the operation (set to 1 to disable retries)
-			TryTimeout:    time.Second * 3,        // Maximum time allowed for any single try
-			RetryDelay:    time.Second * 1,        // Backoff amount for each retry (exponential or linear)
-			MaxRetryDelay: time.Second * 3,        // Max delay between retries
+			MaxTries:      3,                             // Try at most 3 times to perform the operation (set to 1 to disable retries)
+			TryTimeout:    time.Second * 3,               // Maximum time allowed for any single try
+			RetryDelay:    time.Second * 1,               // Backoff amount for each retry (exponential or linear)
+			MaxRetryDelay: time.Second * 3,               // Max delay between retries
 		},
 
 		// Set RequestLogOptions to control how each HTTP request & its response is logged
@@ -174,10 +174,10 @@ func ExampleNewPipeline() {
 	// ContainerURL object that has the same URL as its parent.
 	po.Retry = azblob.RetryOptions{
 		Policy:        azblob.RetryPolicyFixed, // Use fixed time backoff
-		MaxTries:      4,                // Try at most 3 times to perform the operation (set to 1 to disable retries)
-		TryTimeout:    time.Minute * 1,  // Maximum time allowed for any single try
-		RetryDelay:    time.Second * 5,  // Backoff amount for each retry (exponential or linear)
-		MaxRetryDelay: time.Second * 10, // Max delay between retries
+		MaxTries:      4,                       // Try at most 3 times to perform the operation (set to 1 to disable retries)
+		TryTimeout:    time.Minute * 1,         // Maximum time allowed for any single try
+		RetryDelay:    time.Second * 5,         // Backoff amount for each retry (exponential or linear)
+		MaxRetryDelay: time.Second * 10,        // Max delay between retries
 	}
 	newContainerURL := containerURL.WithPipeline(azblob.NewPipeline(azblob.NewAnonymousCredential(), po))
 
@@ -260,9 +260,9 @@ func ExampleBlobURLParts() {
 		sas.IPRange(), sas.Protocol(), sas.Identifier(), sas.Services(), sas.Signature())
 
 	// You can then change some of the fields and construct a new URL:
-	parts.SAS = azblob.SASQueryParameters{}       // Remove the SAS query parameters
-	parts.Snapshot = ""                    // Remove the snapshot timestamp
-	parts.ContainerName = "othercontainer" // Change the container name
+	parts.SAS = azblob.SASQueryParameters{} // Remove the SAS query parameters
+	parts.Snapshot = ""                     // Remove the snapshot timestamp
+	parts.ContainerName = "othercontainer"  // Change the container name
 	// In this example, we'll keep the blob name as is.
 
 	// Construct a new URL from the parts:
@@ -281,7 +281,7 @@ func ExampleAccountSASSignatureValues() {
 
 	// Set the desired SAS signature values and sign them with the shared key credentials to get the SAS query parameters.
 	sasQueryParams := azblob.AccountSASSignatureValues{
-		Protocol:      azblob.SASProtocolHTTPS,                     // Users MUST use HTTPS (not HTTP)
+		Protocol:      azblob.SASProtocolHTTPS,              // Users MUST use HTTPS (not HTTP)
 		ExpiryTime:    time.Now().UTC().Add(48 * time.Hour), // 48-hours before expiration
 		Permissions:   azblob.AccountSASPermissions{Read: true, List: true}.String(),
 		Services:      azblob.AccountSASServices{Blob: true}.String(),
@@ -323,7 +323,7 @@ func ExampleBlobSASSignatureValues() {
 
 	// Set the desired SAS signature values and sign them with the shared key credentials to get the SAS query parameters.
 	sasQueryParams := azblob.BlobSASSignatureValues{
-		Protocol:      azblob.SASProtocolHTTPS,                     // Users MUST use HTTPS (not HTTP)
+		Protocol:      azblob.SASProtocolHTTPS,              // Users MUST use HTTPS (not HTTP)
 		ExpiryTime:    time.Now().UTC().Add(48 * time.Hour), // 48-hours before expiration
 		ContainerName: containerName,
 		BlobName:      blobName,
@@ -1060,7 +1060,7 @@ func ExampleUploadStreamToBlockBlob() {
 
 	// Perform UploadStreamToBlockBlob
 	bufferSize := 2 * 1024 * 1024 // Configure the size of the rotating buffers that are used when uploading
-	maxBuffers := 3 // Configure the number of rotating buffers that are used when uploading
+	maxBuffers := 3               // Configure the number of rotating buffers that are used when uploading
 	_, err := azblob.UploadStreamToBlockBlob(ctx, bytes.NewReader(data), blockBlobURL,
 		azblob.UploadStreamToBlockBlobOptions{BufferSize: bufferSize, MaxBuffers: maxBuffers})
 
@@ -1161,7 +1161,7 @@ func ExampleListBlobsHierarchy() {
 	blobNames := []string{"a/1", "a/2", "b/1", "boaty_mcboatface"}
 	for _, blobName := range blobNames {
 		blobURL := containerURL.NewBlockBlobURL(blobName)
-		_, err := blobURL.Upload(ctx, strings.NewReader("test"), azblob.BlobHTTPHeaders{},nil, azblob.BlobAccessConditions{})
+		_, err := blobURL.Upload(ctx, strings.NewReader("test"), azblob.BlobHTTPHeaders{}, nil, azblob.BlobAccessConditions{})
 
 		if err != nil {
 			log.Fatal("an error occurred while creating blobs for the example setup")
