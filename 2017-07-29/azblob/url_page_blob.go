@@ -101,7 +101,7 @@ func (pb PageBlobURL) GetPageRanges(ctx context.Context, offset int64, count int
 // For more information, see https://docs.microsoft.com/rest/api/storageservices/get-page-ranges.
 func (pb PageBlobURL) GetPageRangesDiff(ctx context.Context, offset int64, count int64, prevSnapshot string, ac BlobAccessConditions) (*PageList, error) {
 	ifModifiedSince, ifUnmodifiedSince, ifMatchETag, ifNoneMatchETag := ac.HTTPAccessConditions.pointers()
-	return pb.pbClient.GetPageRangesDiff(ctx, nil, nil,	&prevSnapshot,
+	return pb.pbClient.GetPageRangesDiff(ctx, nil, nil, &prevSnapshot,
 		httpRange{offset: offset, count: count}.pointers(),
 		ac.LeaseAccessConditions.pointers(),
 		ifModifiedSince, ifUnmodifiedSince, ifMatchETag, ifNoneMatchETag,

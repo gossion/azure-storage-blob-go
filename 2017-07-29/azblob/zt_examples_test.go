@@ -14,9 +14,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Azure/azure-pipeline-go/pipeline"
-	"github.com/Azure/azure-storage-blob-go/2017-07-29/azblob"
 	"math/rand"
+
+	"github.com/Azure/azure-pipeline-go/pipeline"
+	"github.com/Azure/azure-storage-blob-go/2018-03-28/azblob"
 )
 
 // https://godoc.org/github.com/fluhus/godoc-tricks
@@ -717,7 +718,9 @@ func ExampleAppendBlobURL() {
 	fmt.Println(b.String())
 }
 
-// ExamplePageBlobURL shows how to create and use an account Shared Access Signature (SAS).
+// ExamplePageBlobURL shows how to manipulate a page blob with PageBlobURL.
+// A page blob is a collection of 512-byte pages optimized for random read and write operations.
+// The maximum size for a page blob is 8 TB.
 func ExamplePageBlobURL() {
 	// From the Azure portal, get your Storage account blob service URL endpoint.
 	accountName, accountKey := accountInfo()
@@ -1198,7 +1201,7 @@ func ExampleListBlobsHierarchy() {
 	// This time, there is no blob prefix returned, since nothing under a/ has another / in its name.
 	// In other words, in the virtual directory of a/, there aren't any sub-level virtual directory.
 	fmt.Println("======Second listing=====")
-	fmt.Println("No prefiex should be returned now, and the actual count is", len(resp.Blobs.BlobPrefix))
+	fmt.Println("No prefix should be returned now, and the actual count is", len(resp.Blobs.BlobPrefix))
 
 	// The blobs a/1 and a/2 should be returned
 	for _, blob := range resp.Blobs.Blob {

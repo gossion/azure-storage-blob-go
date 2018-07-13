@@ -7,7 +7,6 @@ import (
 
 	"encoding/base64"
 	"encoding/binary"
-
 	"github.com/Azure/azure-pipeline-go/pipeline"
 )
 

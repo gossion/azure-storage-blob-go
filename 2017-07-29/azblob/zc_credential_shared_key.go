@@ -168,7 +168,7 @@ func (f *SharedKeyCredential) buildCanonicalizedResource(u *url.URL) string {
 	}
 
 	if len(params) > 0 { // There is at least 1 query parameter
-		var paramNames []string // We use this to sort the parameter key names
+		paramNames := []string{} // We use this to sort the parameter key names
 		for paramName := range params {
 			paramNames = append(paramNames, paramName) // paramNames must be lowercase
 		}

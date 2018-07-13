@@ -1201,7 +1201,7 @@ func ExampleListBlobsHierarchy() {
 	// This time, there is no blob prefix returned, since nothing under a/ has another / in its name.
 	// In other words, in the virtual directory of a/, there aren't any sub-level virtual directory.
 	fmt.Println("======Second listing=====")
-	fmt.Println("No prefiex should be returned now, and the actual count is", len(resp.Segment.BlobPrefixes))
+	fmt.Println("No prefix should be returned now, and the actual count is", len(resp.Segment.BlobPrefixes))
 
 	// The blobs a/1 and a/2 should be returned
 	for _, blob := range resp.Segment.BlobItems {
